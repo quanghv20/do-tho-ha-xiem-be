@@ -10,11 +10,11 @@ import { Category } from './entities/category.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'db.kwjjmkxcewibtnpjdlua.supabase.co',
       port: 5432,
       username: 'postgres',
       password: '123456789',
-      database: 'do_tho_ha_xiem',
+      database: 'postgres',
       entities: [__dirname + '/entities/*.entity{.ts,.js}'],
       synchronize: true,
     }),
