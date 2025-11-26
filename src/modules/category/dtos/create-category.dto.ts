@@ -14,6 +14,6 @@ export class CreateCategoryDto {
   description?: string;
 
   @IsOptional()
-  @IsInt({ message: 'Thứ tự sắp xếp phải là số nguyên.' })
+  @IsInt({ message: 'Thứ tự hiển thị phải là số nguyên.' })
   sortOrder?: number;
 }

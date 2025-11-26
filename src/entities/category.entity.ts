@@ -12,6 +12,6 @@ export class Category extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
-  @Column({ type: 'int', name: 'sort_order', nullable: true })
+  @Column({ unique: true, type: 'int', name: 'sort_order', nullable: true })
   sortOrder: number;
 }
