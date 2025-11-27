@@ -4,7 +4,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category } from 'src/entities/category.entity';
+import { Category } from '../../entities/category.entity';
 import { Not, Repository } from 'typeorm';
 import { CreateCategoryDto } from './dtos/create-category.dto';
 import { UpdateCategoryDto } from './dtos/update-category.dto';
@@ -14,7 +14,7 @@ export class CategoryService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepo: Repository<Category>,
-  ) {}
+  ) { }
 
   async findAll(): Promise<Category[]> {
     return this.categoryRepo.find();
