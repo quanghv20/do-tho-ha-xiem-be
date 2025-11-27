@@ -9,6 +9,8 @@ import { ProductModule } from './modules/product/product.module';
 
 import { Category } from './entities/category.entity';
 import { Product } from './entities/product.entity';
+import { UserModule } from './modules/user/user.module';
+import { User } from './entities/user.entity';
 
 @Module({
   imports: [
@@ -22,12 +24,13 @@ import { Product } from './entities/product.entity';
       entities: [__dirname + '/entities/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Category, Product]),
+    TypeOrmModule.forFeature([Category, Product, User]),
     PingModule,
     CategoryModule,
-    ProductModule
+    ProductModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
