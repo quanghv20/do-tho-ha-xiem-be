@@ -20,9 +20,25 @@ export class ProductService {
         private readonly categoryRepo: Repository<Category>,
     ) { }
 
-    async findAll(): Promise<Product[]> {
-        return this.productRepo.find();
+    async findAll(filter?: { code?: string; name?: string; categoryId?: number | string }): Promise<Product[]> {
+        const query = this.productRepo.createQueryBuilder('product')
+            .leftJoinAndSelect('product.category', 'category');
+
+        if (filter?.code) {
+            query.andWhere('LOWER(product.code) LIKE :code', { code: `%${filter.code.toLowerCase()}%` });
+        }
+
+        if (filter?.name) {
+            query.andWhere('LOWER(product.name) LIKE :name', { name: `%${filter.name.toLowerCase()}%` });
+        }
+
+        if (filter?.categoryId) {
+            query.andWhere('product.category_id = :categoryId', { categoryId: filter.categoryId });
+        }
+
+        return await query.getMany();
     }
+
 
     async findOne(id: number): Promise<Product> {
         const product = await this.productRepo.findOne({

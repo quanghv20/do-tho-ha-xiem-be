@@ -7,6 +7,7 @@ import {
     Param,
     Body,
     ParseIntPipe,
+    Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dtos/create-product.dto';
@@ -17,8 +18,12 @@ export class ProductController {
     constructor(private readonly productService: ProductService) { }
 
     @Get()
-    findAll() {
-        return this.productService.findAll();
+    findAll(
+        @Query('code') code?: string,
+        @Query('name') name?: string,
+        @Query('categoryId') categoryId?: string | number,
+    ) {
+        return this.productService.findAll({ code, name, categoryId });
     }
 
     @Get(':id')

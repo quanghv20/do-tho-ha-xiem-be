@@ -16,8 +16,18 @@ export class CategoryService {
     private readonly categoryRepo: Repository<Category>,
   ) { }
 
-  async findAll(): Promise<Category[]> {
-    return this.categoryRepo.find();
+  async findAll(filter?: { code?: string; name?: string }): Promise<Category[]> {
+    const query = this.categoryRepo.createQueryBuilder('category');
+
+    if (filter?.code) {
+      query.andWhere('LOWER(category.code) LIKE :code', { code: `%${filter.code.toLowerCase()}%` });
+    }
+
+    if (filter?.name) {
+      query.andWhere('LOWER(category.name) LIKE :name', { name: `%${filter.name.toLowerCase()}%` });
+    }
+
+    return await query.getMany();
   }
 
   async findOne(id: number): Promise<Category> {
