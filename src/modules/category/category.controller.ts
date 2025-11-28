@@ -15,7 +15,7 @@ import { UpdateCategoryDto } from './dtos/update-category.dto';
 
 @Controller('categories')
 export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) { }
+  constructor(private readonly categoryService: CategoryService) {}
 
   @Get()
   async findAll(@Query('code') code?: string, @Query('name') name?: string) {
@@ -48,7 +48,10 @@ export class CategoryController {
   }
 
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateCategoryDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateCategoryDto,
+  ) {
     const data = await this.categoryService.update(id, dto);
     return {
       statusCode: 200,
@@ -66,5 +69,4 @@ export class CategoryController {
       data: null,
     };
   }
-
 }

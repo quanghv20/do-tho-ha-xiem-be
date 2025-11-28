@@ -11,6 +11,8 @@ import { Category } from './entities/category.entity';
 import { Product } from './entities/product.entity';
 import { UserModule } from './modules/user/user.module';
 import { User } from './entities/user.entity';
+import { AuthModule } from './modules/auth/auth.module';
+import { ProfileModule } from './modules/profile/profile.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { User } from './entities/user.entity';
     CategoryModule,
     ProductModule,
     UserModule,
+    AuthModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

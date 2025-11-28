@@ -14,17 +14,24 @@ export class CategoryService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepo: Repository<Category>,
-  ) { }
+  ) {}
 
-  async findAll(filter?: { code?: string; name?: string }): Promise<Category[]> {
+  async findAll(filter?: {
+    code?: string;
+    name?: string;
+  }): Promise<Category[]> {
     const query = this.categoryRepo.createQueryBuilder('category');
 
     if (filter?.code) {
-      query.andWhere('LOWER(category.code) LIKE :code', { code: `%${filter.code.toLowerCase()}%` });
+      query.andWhere('LOWER(category.code) LIKE :code', {
+        code: `%${filter.code.toLowerCase()}%`,
+      });
     }
 
     if (filter?.name) {
-      query.andWhere('LOWER(category.name) LIKE :name', { name: `%${filter.name.toLowerCase()}%` });
+      query.andWhere('LOWER(category.name) LIKE :name', {
+        name: `%${filter.name.toLowerCase()}%`,
+      });
     }
 
     return await query.getMany();
@@ -42,7 +49,7 @@ export class CategoryService {
         where: {
           code: dto.code,
           ...(excludeId ? { id: Not(excludeId) } : {}),
-        } as any,
+        },
       });
       if (exists) {
         throw new BadRequestException('Mã danh mục đã tồn tại.');
@@ -54,7 +61,7 @@ export class CategoryService {
         where: {
           name: dto.name,
           ...(excludeId ? { id: Not(excludeId) } : {}),
-        } as any,
+        },
       });
       if (exists) {
         throw new BadRequestException('Tên danh mục đã tồn tại.');
@@ -66,7 +73,7 @@ export class CategoryService {
         where: {
           sortOrder: dto.sortOrder,
           ...(excludeId ? { id: Not(excludeId) } : {}),
-        } as any,
+        },
       });
       if (exists) {
         throw new BadRequestException('Thứ tự hiển thị đã tồn tại.');
